@@ -16,6 +16,20 @@ import numpy as np
 # the configurations you need to change.
 
 class Config(object):
+    INPUT_CHANNELS = 1
+
+    INVERTED_WEIGHTS = False
+
+    NO_IMAGE_SCALE = False # depens on pretrained model
+
+    USE_BORDER_WEIGHTS = False
+
+    USE_CORE_FEATURES = False
+
+    BORDER_WEIGHT = 4.
+
+    CORE_FEATURE_MERGE_OP = "concat" # concat or add
+
     """Base configuration class. For custom configurations, create a
     sub-class that inherits from this one and override properties
     that need to be changed.
@@ -117,7 +131,7 @@ class Config(object):
     IMAGE_MIN_SCALE = 0
 
     # Image mean (RGB)
-    MEAN_PIXEL = np.array([123.7, 116.8, 103.9])
+    # MEAN_PIXEL = np.array([123.7, 116.8, 103.9])
 
     # Number of ROIs per image to feed to classifier/mask heads
     # The Mask RCNN paper uses 512 but often the RPN doesn't generate
@@ -135,8 +149,7 @@ class Config(object):
 
     # Shape of output mask
     # To change this you also need to change the neural network mask branch
-    MASK_SHAPE = [28, 28]
-
+    MASK_SHAPE = [36, 36]
     # Maximum number of ground truth instances to use in one image
     MAX_GT_INSTANCES = 100
 
@@ -195,11 +208,7 @@ class Config(object):
         # Effective batch size
         self.BATCH_SIZE = self.IMAGES_PER_GPU * self.GPU_COUNT
 
-        # Input image size
-        if self.IMAGE_RESIZE_MODE == "crop":
-            self.IMAGE_SHAPE = np.array([self.IMAGE_MIN_DIM, self.IMAGE_MIN_DIM, 3])
-        else:
-            self.IMAGE_SHAPE = np.array([self.IMAGE_MAX_DIM, self.IMAGE_MAX_DIM, 3])
+        self.IMAGE_SHAPE = np.array([self.IMAGE_MAX_DIM, self.IMAGE_MAX_DIM, self.INPUT_CHANNELS])
 
         # Image meta data length
         # See compose_image_meta() for details

@@ -57,16 +57,23 @@ def display_images(images, titles=None, cols=4, cmap=None, norm=None,
     plt.show()
 
 
+# def random_colors(N, bright=True):
+#     """
+#     Generate random colors.
+#     To get visually distinct colors, generate them in HSV space then
+#     convert to RGB.
+#     """
+#     brightness = 1.0 if bright else 0.7
+#     hsv = [(i / N, 1, brightness) for i in range(N)]
+#     colors = list(map(lambda c: colorsys.hsv_to_rgb(*c), hsv))
+#     random.shuffle(colors)
+#     return colors
+
 def random_colors(N, bright=True):
-    """
-    Generate random colors.
-    To get visually distinct colors, generate them in HSV space then
-    convert to RGB.
-    """
-    brightness = 1.0 if bright else 0.7
-    hsv = [(i / N, 1, brightness) for i in range(N)]
-    colors = list(map(lambda c: colorsys.hsv_to_rgb(*c), hsv))
-    random.shuffle(colors)
+    colors = []
+    cmap = plt.cm.get_cmap('hsv', N)
+    for i in range(N):
+        colors.append(cmap(i))
     return colors
 
 
@@ -85,7 +92,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
                       scores=None, title="",
                       figsize=(16, 16), ax=None,
                       show_mask=True, show_bbox=True,
-                      colors=None, captions=None):
+                      colors=None, captions=None, save_path=None, tight=None):
     """
     boxes: [num_instance, (y1, x1, y2, x2, class_id)] in image coordinates.
     masks: [height, width, num_instances]
@@ -100,6 +107,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
     """
     # Number of instances
     N = boxes.shape[0]
+
     if not N:
         print("\n*** No instances to display *** \n")
     else:
@@ -115,14 +123,16 @@ def display_instances(image, boxes, masks, class_ids, class_names,
     colors = colors or random_colors(N)
 
     # Show area outside image boundaries.
-    height, width = image.shape[:2]
-    ax.set_ylim(height + 10, -10)
-    ax.set_xlim(-10, width + 10)
+    if tight == None:
+        height, width = image.shape[:2]
+        ax.set_ylim(height + 10, -10)
+        ax.set_xlim(-10, width + 10)
+        ax.set_title(title)
     ax.axis('off')
-    ax.set_title(title)
 
     masked_image = image.astype(np.uint32).copy()
     for i in range(N):
+
         color = colors[i]
 
         # Bounding box
@@ -165,6 +175,9 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             p = Polygon(verts, facecolor="none", edgecolor=color)
             ax.add_patch(p)
     ax.imshow(masked_image.astype(np.uint8))
+    if save_path:
+        plt.draw()
+        plt.savefig(save_path, dpi=400, frameon=False,bbox_inches='tight',transparent=True, pad_inches=0)
     if auto_show:
         plt.show()
 
@@ -174,7 +187,7 @@ def display_differences(image,
                         pred_box, pred_class_id, pred_score, pred_mask,
                         class_names, title="", ax=None,
                         show_mask=True, show_box=True,
-                        iou_threshold=0.5, score_threshold=0.5):
+                        iou_threshold=0.5, score_threshold=0.5, save_path=None):
     """Display ground truth and prediction instances on the same image."""
     # Match predictions to ground truth
     gt_match, pred_match, overlaps = utils.compute_matches(
@@ -204,7 +217,38 @@ def display_differences(image,
         class_names, scores, ax=ax,
         show_bbox=show_box, show_mask=show_mask,
         colors=colors, captions=captions,
-        title=title)
+        title=title,save_path=save_path)
+
+
+def display_differences_white(image,
+                        gt_box, gt_class_id, gt_mask,
+                        pred_box, pred_class_id, pred_score, pred_mask,
+                        class_names, title="", ax=None,
+                        show_mask=True, show_box=True,
+                        iou_threshold=0.5, score_threshold=0.5, save_path=None):
+    """Display ground truth and prediction instances on the same image."""
+    # Match predictions to ground truth
+    gt_match, pred_match, overlaps = utils.compute_matches(
+        gt_box, gt_class_id, gt_mask,
+        pred_box, pred_class_id, pred_score, pred_mask,
+        iou_threshold=iou_threshold, score_threshold=score_threshold)
+    colors = [(1, 0, 0, 1)] * len(pred_match)
+    class_ids = pred_class_id
+    scores = pred_score
+    boxes = pred_box
+    masks = pred_mask
+    # Captions per instance show score/IoU
+    captions = [" " for m in pred_match]
+    # Set title if not provided
+    title = title or "Ground Truth and Detections\n GT=green, pred=red, captions: score/IoU"
+    # Display
+    display_instances(
+        image,
+        boxes, masks, class_ids,
+        class_names, scores, ax=ax,
+        show_bbox=show_box, show_mask=show_mask,
+        colors=colors, captions=captions,
+        title=title,save_path=save_path, tight=True)
 
 
 def draw_rois(image, rois, refined_rois, mask, class_ids, class_names, limit=10):

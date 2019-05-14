@@ -7,9 +7,6 @@ Licensed under the MIT License (see LICENSE for details)
 Written by Waleed Abdulla
 """
 
-import sys
-import os
-import math
 import random
 import numpy as np
 import tensorflow as tf
@@ -17,7 +14,7 @@ import scipy
 import skimage.color
 import skimage.io
 import skimage.transform
-import urllib.request
+#import urllib.request
 import shutil
 import warnings
 
@@ -247,6 +244,8 @@ class Dataset(object):
     """
 
     def __init__(self, class_map=None):
+        self.FIXED_IMAGE_SHAPE = False
+        self.IMAGE_SHAPE = [ 512, 512 ]
         self._image_ids = []
         self.image_info = []
         # Background is always the first class
@@ -842,17 +841,17 @@ def batch_slice(inputs, graph_fn, batch_size, names=None):
     return result
 
 
-def download_trained_weights(coco_model_path, verbose=1):
-    """Download COCO trained weights from Releases.
-
-    coco_model_path: local path of COCO trained weights
-    """
-    if verbose > 0:
-        print("Downloading pretrained model to " + coco_model_path + " ...")
-    with urllib.request.urlopen(COCO_MODEL_URL) as resp, open(coco_model_path, 'wb') as out:
-        shutil.copyfileobj(resp, out)
-    if verbose > 0:
-        print("... done downloading pretrained model!")
+# def download_trained_weights(coco_model_path, verbose=1):
+#     """Download COCO trained weights from Releases.
+#
+#     coco_model_path: local path of COCO trained weights
+#     """
+#     if verbose > 0:
+#         print("Downloading pretrained model to " + coco_model_path + " ...")
+#     with urllib.request.urlopen(COCO_MODEL_URL) as resp, open(coco_model_path, 'wb') as out:
+#         shutil.copyfileobj(resp, out)
+#     if verbose > 0:
+#         print("... done downloading pretrained model!")
 
 
 def norm_boxes(boxes, shape):
