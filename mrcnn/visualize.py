@@ -92,7 +92,7 @@ def display_instances(image, boxes, masks, class_ids, class_names,
                       scores=None, title="",
                       figsize=(16, 16), ax=None,
                       show_mask=True, show_bbox=True,
-                      colors=None, captions=None, save_path=None, tight=None):
+                      colors=None, captions=None, save_path=None, tight=None, no_captions=False):
     """
     boxes: [num_instance, (y1, x1, y2, x2, class_id)] in image coordinates.
     masks: [height, width, num_instances]
@@ -155,6 +155,8 @@ def display_instances(image, boxes, masks, class_ids, class_names,
             caption = "{} {:.3f}".format(label, score) if score else label
         else:
             caption = captions[i]
+        if (no_captions):
+             caption = ""
         ax.text(x1, y1 + 8, caption,
                 color='w', size=11, backgroundcolor="none")
 
@@ -208,6 +210,7 @@ def display_differences(image,
         (overlaps[i, int(pred_match[i])]
             if pred_match[i] > -1 else overlaps[i].max()))
             for i in range(len(pred_match))]
+
     # Set title if not provided
     title = title or "Ground Truth and Detections\n GT=green, pred=red, captions: score/IoU"
     # Display
