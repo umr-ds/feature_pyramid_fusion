@@ -43,6 +43,7 @@ Full dataset available at: https://hessenbox.uni-marburg.de/getlink/fiWqsAtPVpkX
 
 ## Reference
 
+```
 @article{korfhage2020detection,
   title={Detection and segmentation of morphologically complex eukaryotic cells in fluorescence microscopy images via feature pyramid fusion},
   author={Korfhage, Nikolaus and M{\"u}hling, Markus and Ringshandl, Stephan and Becker, Anke and Schmeck, Bernd and Freisleben, Bernd},
@@ -53,4 +54,5 @@ Full dataset available at: https://hessenbox.uni-marburg.de/getlink/fiWqsAtPVpkX
   year={2020},
   publisher={Public Library of Science San Francisco, CA USA}
 }
+```
 
