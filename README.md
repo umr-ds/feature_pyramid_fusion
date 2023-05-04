@@ -21,25 +21,25 @@ Please see https://github.com/matterport/Mask_RCNN for requirements and installa
 
 ## Dataset
 
-Full dataset available at: https://hessenbox.uni-marburg.de/getlink/fiWqsAtPVpkX8Y8xH67Pqt/synmikro_macrophages.tar.gz
+Full dataset available at: https://data.uni-marburg.de/bitstream/handle/dataumr/231/synmikro_macrophages.tar.gz
 
 ## Models
 
-* [Pretrained Grayscale ResNet](https://hessenbox.uni-marburg.de/dl/fiE9rpMrLvozR257eQxpCd/pretrained_grayscale_resnet.zip)
+* [Pretrained Grayscale ResNet](https://data.uni-marburg.de/bitstream/handle/dataumr/231/pretrained_grayscale_resnet.zip)
 
-* [FPF &oplus; weighted loss](https://hessenbox.uni-marburg.de/dl/fiLyxHi1XkvQVs2sbL97RG/fpf_add_weighted.zip)
+* [FPF &oplus; weighted loss](https://data.uni-marburg.de/bitstream/handle/dataumr/231/fpf_add_weighted.zip)
 
-* [FPF &odot; weighted loss](https://hessenbox.uni-marburg.de/dl/fi3xqPoncVmMV1ieFWF2GD/fpf_concat_weighted.zip)
+* [FPF &odot; weighted loss](https://data.uni-marburg.de/bitstream/handle/dataumr/231/fpf_concat_weighted.zip)
 
-* [FPF &oplus;](https://hessenbox.uni-marburg.de/dl/fiXozMVps2o51QZDyV2wxp/fpf_add.zip)
+* [FPF &oplus;](https://data.uni-marburg.de/bitstream/handle/dataumr/231/fpf_add.zip)
 
-* [FPF &odot;](https://hessenbox.uni-marburg.de/dl/fiMoT5XJ9mV2uAM1t65mRG/fpf_concat.zip)
+* [FPF &odot;](https://data.uni-marburg.de/bitstream/handle/dataumr/231/fpf_concat.zip)
 
-* [with nucleus channel](https://hessenbox.uni-marburg.de/dl/fi9TZ71FFnihHHCcyYEeGB/with_nucleus.zip)
+* [with nucleus channel](https://data.uni-marburg.de/bitstream/handle/dataumr/231/with_nucleus.zip)
 
-* [without nucleus channel](https://hessenbox.uni-marburg.de/dl/fiJ1BTqLToksSjgfik9DPh/without_nucleus.zip)
+* [without nucleus channel](https://data.uni-marburg.de/bitstream/handle/dataumr/231/without_nucleus.zip)
 
-* [Cores](https://hessenbox.uni-marburg.de/dl/fi7ZH1NFGaYDHgGc7bMZEx/cores.zip)
+* [Cores](https://data.uni-marburg.de/bitstream/handle/dataumr/231/cores.zip)
 
 ## Reference
 
