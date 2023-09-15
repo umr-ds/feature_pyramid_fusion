@@ -1,0 +1,10 @@
+@article{korfhage2020detection,
+  title={Detection and segmentation of morphologically complex eukaryotic cells in fluorescence microscopy images via feature pyramid fusion},
+  author={Korfhage, Nikolaus and M{\"u}hling, Markus and Ringshandl, Stephan and Becker, Anke and Schmeck, Bernd and Freisleben, Bernd},
+  journal={PLOS Computational Biology},
+  volume={16},
+  number={9},
+  pages={e1008179},
+  year={2020},
+  publisher={Public Library of Science San Francisco, CA USA}
+}
